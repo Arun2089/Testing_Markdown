@@ -2,7 +2,7 @@
 
 # TASKs
 
-- # 1. Create 3 Private Servers On AWS
+  # 1. Create 3 Private Servers On AWS
     - Create new VPC in AWS
     
            Name = My_VPC IPV4 CIRD = 10.0.0.0/16 (Gives Approx 65K ips)
@@ -63,7 +63,7 @@
         
         VPC Resource Map Should Look Like This
         
-- # 2. Config SSH And Test Connection Between The Instances
+ # 2. Config SSH And Test Connection Between The Instances
     - In You Local Machine Go to ~/.ssh/config , and write the config for private and public servers
     
     ```bash
@@ -105,7 +105,7 @@
     ssh private3
     ```
     
-- # 3. Install Ansible On Local Machine
+ # 3. Install Ansible On Local Machine
     - install pipx
     
     ```bash
@@ -118,7 +118,7 @@
     $ pipx install --include-deps ansible
     ```
     
-- # 4. Create Hosts File For Ansible Host [Nodes - (instances - Private_ubuntu_1,2,3)]
+ # 4. Create Hosts File For Ansible Host [Nodes - (instances - Private_ubuntu_1,2,3)]
     - Create  a hosts File and add the ssh Host [create this file in the same directory as the ansible_playbook.yml is present in  or the path you want to run ansible commands on]
     
     ```bash
@@ -129,7 +129,7 @@
     
     ```
     
-- # 5. Create Load_Balancer [AWS Service] To Host [access] The Nginx Running on Private Host.
+ # 5. Create Load_Balancer [AWS Service] To Host [access] The Nginx Running on Private Host.
     - Create A Target Group Named [My_Target_Group]
     
           Select Target Type as  Instances 
@@ -142,21 +142,21 @@
     
           Application Load Balance [internet-facing]
     
-    Select My_VPC
+            Select My_VPC
+        
+            Select Subnets Present In Different Availability Zones
     
-    Select Subnets Present In Different Availability Zones
+             ps. Minimum 2 Different Availability Zones Should Be Selected [Thats Why We Created 3  Different Private_Subnet In Different Availability Zones]
     
-         ps. Minimum 2 Different Availability Zones Should Be Selected [Thats Why We Created 3  Different Private_Subnet In Different Availability Zones]
+              My_Private_Subnet_1 - ap-south-1a
+        
+              My_Private_Subnet_2 - ap-south-1b
     
-        My_Private_Subnet_1 - ap-south-1a
+              My_Private_Subnet_3 - ap-south-1c
     
-        My_Private_Subnet_2 - ap-south-1b
+            In Listener HTTP: 80  [because the nginx on private server is hosted on 80 by default ]
     
-        My_Private_Subnet_3 - ap-south-1c
-    
-         In Listener HTTP: 80  [because the nginx on private server is hosted on 80 by default ]
-    
-         Select target group [My_Target_Group]
+            Select target group [My_Target_Group]
     
     ![The Load Balancer Resource Map Should Look Like This](Ansible%20x%20AWS%20%5BVPC,Load%20Balancer%5D%20x%20Docker%20957e416d9ecd489fa62e80650278d29f/Screenshot_2024-07-30_at_1.32.58_AM.png)
     
@@ -164,7 +164,7 @@
     
     Hit The DNS name In The Load Balancer Details [to Server The Hosted Content on Private Servers By Nginx] 
     
-- # 6. Write a Ansible_Playbook
+ # 6. Write a Ansible_Playbook
     - To Deploy Nginx on Private_servers
     - With Different Content And Info About The Host
     - Install Docker
