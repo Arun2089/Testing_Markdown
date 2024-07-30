@@ -2,7 +2,7 @@
 
 # TASKs
 
-- 1. Create 3 Private Servers On AWS
+- **1. Create 3 Private Servers On AWS**
     - Create new VPC in AWS
     
            Name = My_VPC IPV4 CIRD = 10.0.0.0/16 (Gives Approx 65K ips)
